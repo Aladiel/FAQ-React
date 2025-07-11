@@ -6,7 +6,7 @@ export default function AuthCallback() {
 
     useEffect(() => {
         if (localStorage.getItem("access_token") && localStorage.getItem("refresh_token")) {
-            navigate('/protected');
+            navigate('/');
             return
         }
 
@@ -21,7 +21,7 @@ export default function AuthCallback() {
             localStorage.setItem("access_token", access);
             localStorage.setItem("refresh_token", refresh);
             console.log("Tokens stored in localStorage");
-            navigate('/protected');  // ou page d'accueil
+            navigate('/');  // ou page d'accueil
         } else {
             console.warn("Tokens not found in URL")
             navigate('/login');

@@ -1,7 +1,5 @@
 import LogoutButton from "./LogoutButton.jsx";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,22 +10,12 @@ import {
   faSignOutAlt,
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../contexts/UserContext.jsx";
+
 export default function Navbar() {
-  const [username, setUsername] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/auth/user/", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setUsername(res.data.username);
-      })
-      .catch(() => {
-        setUsername(null);
-      });
-  }, []);
-
+  const { user, setUser } = useContext(UserContext);
+  const apiUrl = import.meta.env.VITE_API_URL;
   return (
     <div className="navbar">
       <div className="logo">Admin Panel</div>
@@ -40,27 +28,37 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faQuestionCircle} className="nav-icon" />
           Faqs
         </a>
-
-        <a href="/admin">
-          <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
-          Dashboard
-        </a>
-        <a href="/admin/users">
-          <FontAwesomeIcon icon={faUser} className="nav-icon" />
-          Users
-        </a>
-        <a href="/admin/faqs">
-          <FontAwesomeIcon icon={faQuestionCircle} className="nav-icon" />
-          FAQs
-        </a>
-        <a href="/admin/pdfs">
-          <FontAwesomeIcon icon={faFilePdf} className="nav-icon" />
-          PDFs
-        </a>
-        <a href="/logout">
-          <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
-          Logout
-        </a>
+        {user && user.is_staff ? (
+          <>
+            <a href="/admin">
+              <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
+              Dashboard
+            </a>
+            <a href="/admin/users">
+              <FontAwesomeIcon icon={faUser} className="nav-icon" />
+              Users
+            </a>
+            <a href="/admin/faqs">
+              <FontAwesomeIcon icon={faQuestionCircle} className="nav-icon" />
+              FAQs
+            </a>
+            <a href="/admin/pdfs">
+              <FontAwesomeIcon icon={faFilePdf} className="nav-icon" />
+              PDFs
+            </a>
+          </>
+        ) : null}
+        {user ? (
+          <a href="/logout">
+            <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+            Logout
+          </a>
+        ) : (
+          <a href={`${apiUrl}/auth/login/google-oauth2/`}>
+            <FontAwesomeIcon icon={faSignOutAlt} className="nav-icon" />
+            Login
+          </a>
+        )}
       </nav>
     </div>
   );
