@@ -2,7 +2,6 @@ export default function LoginPage() {
 
     const handleLogin = () => {
         window.location.href = "http://localhost:8000/auth/login/google-oauth2/";
-        // window.location.href = "http://localhost:8000/api/token/google/";  // pour test
     };
 
     return (

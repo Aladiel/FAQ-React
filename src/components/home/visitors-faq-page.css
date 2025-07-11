@@ -1,0 +1,74 @@
+.faq-visitor-page {
+    padding: 40px;
+    background-color: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.faq-visitor-page h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Select Menu */
+.faq-select-container {
+    max-width: 400px;
+    margin: 0 auto 32px auto;
+    text-align: center;
+}
+
+.faq-select-container label {
+    font-size: 1.1rem;
+    color: #34495e;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.faq-select-container select {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.faq-select-container select:focus {
+    border-color: #3498db;
+}
+
+/* FAQ List */
+.faq-list {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-list h2 {
+    font-size: 1.5rem;
+    color: #34495e;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.faq-item {
+    margin-bottom: 24px;
+}
+
+.faq-item h3 {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+}
