@@ -34,6 +34,19 @@ export default function Pdfs() {
         console.log(err)
       })
   }
+
+  function deletePdfFile(file_id){
+    axios
+      .delete(`${apiUrl}/uploadedfiles/${file_id}/`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        fetchPdfs();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   useEffect(() => {
     fetchPdfs();
   }, []);
@@ -64,7 +77,7 @@ export default function Pdfs() {
               <td>{pdf.file_name || "Null"}</td>
               <td>{pdf.file_path}</td>
               <td>
-                <button>Supprimer</button>
+                <button onClick={() => deletePdfFile(pdf.id)}>Supprimer</button>
               </td>
             </tr>
           ))}
