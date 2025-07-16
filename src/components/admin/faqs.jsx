@@ -5,7 +5,14 @@ import { useEffect, useState } from "react";
 export default function Faqs() {
   const [faqs, setFaqs] = useState([]);
   const [pdfs, setPdfs] = useState([]);
+  const [editId, setEditId] = useState(null);
+  const [editData, setEditData] = useState({
+    question: "",
+    answer: "",
+    generation: "",
+  });
   const apiUrl = import.meta.env.VITE_API_URL;
+
   function fetchFaqs() {
     axios
       .get(`${apiUrl}/faqs/`, {
@@ -13,7 +20,6 @@ export default function Faqs() {
       })
       .then((res) => {
         setFaqs(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -26,7 +32,6 @@ export default function Faqs() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         fetchFaqs();
       })
       .catch((err) => {
@@ -46,7 +51,6 @@ export default function Faqs() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         fetchFaqs();
       })
       .catch((err) => {
@@ -60,6 +64,24 @@ export default function Faqs() {
       })
       .then((res) => {
         setPdfs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function modifyFaq(id, question, answer, generation) {
+    const modifiedFaq = {
+      question: question,
+      answer: answer,
+      generation: generation,
+    };
+    axios
+      .put(`${apiUrl}/faqs/${id}/`, modifiedFaq, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        fetchFaqs();
       })
       .catch((err) => {
         console.log(err);
@@ -122,12 +144,73 @@ export default function Faqs() {
         <tbody>
           {faqs.map((faq) => (
             <tr key={faq.id}>
-              <td>{faq.question}</td>
-              <td>{faq.answer}</td>
-              <td>{faq.generation}</td>
+              <td>
+                {editId === faq.id ? (
+                  <input
+                    value={editData.question}
+                    onChange={(e) =>
+                      setEditData({ ...editData, question: e.target.value })
+                    }
+                  />
+                ) : (
+                  faq.question
+                )}
+              </td>
+              <td>
+                {editId === faq.id ? (
+                  <input
+                    value={editData.answer}
+                    onChange={(e) =>
+                      setEditData({ ...editData, answer: e.target.value })
+                    }
+                  />
+                ) : (
+                  faq.answer
+                )}
+              </td>
+              <td>
+                {editId === faq.id ? (
+                  <select value={editData.generation} onChange={(e) => {
+                    setEditData({ ...editData, generation: e.target.value })
+                  }}>
+                    <option value="Manual">Manual</option>
+                    <option value="AI">AI</option>
+                  </select>
+                ) : (
+                  faq.generation
+                )}
+              </td>
               <td>{faq.file ? faq.file.file_name : "None"}</td>
               <td>
-                <button>Modify</button>
+                {editId === faq.id ? (
+                  <button
+                    onClick={() => {
+                      modifyFaq(
+                        faq.id,
+                        editData.question,
+                        editData.answer,
+                        editData.generation
+                      );
+                      setEditId(null);
+                      setEditData({ question: "", answer: "", generation: "" });
+                    }}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setEditId(faq.id);
+                      setEditData({
+                        question: faq.question,
+                        answer: faq.answer,
+                        generation: faq.generation,
+                      });
+                    }}
+                  >
+                    Modify
+                  </button>
+                )}
               </td>
               <td>
                 <button onClick={() => deleteFaq(faq.id)}>Delete</button>
