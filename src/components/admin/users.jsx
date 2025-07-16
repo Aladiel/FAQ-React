@@ -18,7 +18,6 @@ export default function Users() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         setUsers(res.data);
       })
       .catch((err) => {
