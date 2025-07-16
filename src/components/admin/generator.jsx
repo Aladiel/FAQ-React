@@ -45,6 +45,7 @@ export default function FAQsGenerator() {
 
   function saveFaq(new_faq, index) {
     new_faq.generation = "AI";
+    new_faq.file_id = pdfid;
     axios
       .post(`${apiUrl}/faqs/`, new_faq, {
         withCredentials: true,
