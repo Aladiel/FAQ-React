@@ -20,7 +20,7 @@ export default function Navbar() {
   const apiUrl = import.meta.env.VITE_API_URL;
   return (
     <div className="navbar">
-      <div className="logo">Admin Panel</div>
+      <div className="logo">AI FAQs {user && user.is_staff ? <span>(Admin)</span>: ""}</div>
       <nav className="nav-links">
         <a href="/">
           <FontAwesomeIcon icon={faHome} className="nav-icon" />
