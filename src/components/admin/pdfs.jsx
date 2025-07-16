@@ -5,6 +5,7 @@ import axios from "axios";
 export default function Pdfs() {
   const [pdfs, setPdfs] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
+
   function fetchPdfs() {
     
     axios
@@ -19,6 +20,20 @@ export default function Pdfs() {
       });
   }
 
+  function SavePdfFile(file){
+    const formData = new FormData();
+    formData.append('file_path', file);
+    axios
+      .post(`${apiUrl}/uploadedfiles/`, formData, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        fetchPdfs();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   useEffect(() => {
     fetchPdfs();
   }, []);
@@ -26,12 +41,20 @@ export default function Pdfs() {
   return (
     <div className="page-card">
       <h1>Liste des PDFs</h1>
+      
+      <div className="form-group">
+        <label htmlFor="pdf-file">Ajouter un nouveau PDF</label>
+        <input type="file" id="pdf-file" className="form-control"/>
+      </div>
+      <button onClick={() => SavePdfFile(document.getElementById("pdf-file").files[0])} className="btn btn-primary">
+        Ajouter
+      </button>
+      
       <table>
         <thead>
           <tr>
             <th>Nom du fichier</th>
             <th>Chemin du fichier</th>
-            <th>Modifier</th>
             <th>Supprimer</th>
           </tr>
         </thead>
@@ -40,9 +63,6 @@ export default function Pdfs() {
             <tr key={pdf.id}>
               <td>{pdf.file_name || "Null"}</td>
               <td>{pdf.file_path}</td>
-              <td>
-                <button>Modifier</button>
-              </td>
               <td>
                 <button>Supprimer</button>
               </td>

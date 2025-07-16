@@ -12,7 +12,6 @@ export default function UserProvider({ children }) {
       })
       .then((res) => {
         setUser(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);

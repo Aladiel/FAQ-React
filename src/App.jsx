@@ -11,6 +11,7 @@ import Pdfs from "./components/admin/pdfs.jsx";
 import FaqVisitorPage from "./components/home/visitors-faq-page.jsx";
 import LogoutButton from "./components/authentication/LogoutButton.jsx";
 import { UserContext } from "./contexts/UserContext.jsx";
+import FAQsGenerator from "./components/admin/generator.jsx";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -24,11 +25,12 @@ function App() {
         <Route path="/" element={<HomePage />} />
         {user && user.is_staff ? (
           <>
-          <Route path="/admin" element={<DashboardPage />} />
-          <Route path="/admin/users" element={<Users />} />
-          <Route path="/admin/dashboard" element={<DashboardPage />} />
-          <Route path="/admin/faqs" element={<Faqs />} />
-          <Route path="/admin/pdfs" element={<Pdfs />} />
+            <Route path="/admin" element={<DashboardPage />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/dashboard" element={<DashboardPage />} />
+            <Route path="/admin/faqs" element={<Faqs />} />
+            <Route path="/admin/pdfs" element={<Pdfs />} />
+            <Route path="/admin/generator" element={<FAQsGenerator />} />
           </>
         ) : null}
         <Route path="/faqs" element={<FaqVisitorPage />} />

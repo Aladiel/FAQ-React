@@ -8,9 +8,7 @@ export default function FaqVisitorPage() {
 
   function fetchPdfs() {
     axios
-      .get(`${apiUrl}/faqs/`, {
-        withCredentials: true,
-      })
+      .get(`${apiUrl}/faqs/`)
       .then((res) => {
         setfaqs(res.data);
       })

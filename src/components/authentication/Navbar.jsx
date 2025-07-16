@@ -9,9 +9,11 @@ import {
   faFilePdf,
   faSignOutAlt,
   faHome,
+  faPersonBooth,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext.jsx";
+import { faRobot } from "@fortawesome/free-solid-svg-icons/faRobot";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -45,6 +47,10 @@ export default function Navbar() {
             <a href="/admin/pdfs">
               <FontAwesomeIcon icon={faFilePdf} className="nav-icon" />
               PDFs
+            </a>
+            <a href="/admin/generator">
+              <FontAwesomeIcon icon={faRobot} className="nav-icon" />
+              Generator
             </a>
           </>
         ) : null}
