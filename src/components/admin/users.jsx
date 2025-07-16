@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const [editId, setEditId] = useState(null);
+  const [editData, setEditData] = useState({
+    first_name: "",
+    last_name: "",
+    is_staff: false,
+  });
   const apiUrl = import.meta.env.VITE_API_URL;
 
   function fetchUsers() {
@@ -14,6 +20,24 @@ export default function Users() {
       .then((res) => {
         console.log(res.data);
         setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function modifyUser(id, first_name, last_name, is_staff) {
+    const modifiedUser = {
+      first_name: first_name,
+      last_name: last_name,
+      is_staff: is_staff,
+    };
+    axios
+      .put(`${apiUrl}/users/${id}/`, modifiedUser, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        fetchUsers();
       })
       .catch((err) => {
         console.log(err);
@@ -42,13 +66,85 @@ export default function Users() {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.first_name || "Null"}</td>
-              <td>{user.last_name || "Null"}</td>
+              <td>
+                {editId === user.id ? (
+                  <input
+                    value={editData.first_name}
+                    onChange={(e) =>
+                      setEditData({ ...editData, first_name: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.first_name || "Null"
+                )}
+              </td>
+              <td>
+                {editId === user.id ? (
+                  <input
+                    value={editData.last_name}
+                    onChange={(e) =>
+                      setEditData({ ...editData, last_name: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.last_name || "Null"
+                )}
+              </td>
               <td>{user.username}</td>
               <td>{user.email || "Null"}</td>
-              <td>{user.is_staff ? "Admin" : "User"}</td>
               <td>
-                <button>Modifier</button>
+                {editId === user.id ? (
+                  <select
+                    name="is_staff"
+                    defaultValue={editData.is_staff}
+                    value={editData.is_staff}
+                    onChange={(e) => {
+                      setEditData({ ...editData, is_staff: e.target.value });
+                    }}
+                  >
+                    <option value="true" >Admin</option>
+                    <option value="false" >User</option>
+                  </select>
+                ) : user.is_staff ? (
+                  "Admin"
+                ) : (
+                  "User"
+                )}
+              </td>
+              <td>
+                {editId === user.id ? (
+                  <button
+                    onClick={() => {
+                      modifyUser(
+                        user.id,
+                        editData.first_name,
+                        editData.last_name,
+                        editData.is_staff
+                      );
+                      setEditId(null);
+                      setEditData({
+                        first_name: "",
+                        last_name: "",
+                        is_staff: false,
+                      });
+                    }}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setEditId(user.id);
+                      setEditData({
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        is_staff: user.is_staff,
+                      });
+                    }}
+                  >
+                    Modify
+                  </button>
+                )}
               </td>
               <td>
                 <button>Supprimer</button>
