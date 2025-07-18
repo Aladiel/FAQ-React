@@ -66,7 +66,7 @@ export default function FAQsGenerator() {
   return (
     <>
       <div className="page-card">
-        <h1>FAQs Generator</h1>
+        <h1>FAQs AI Generator</h1>
         <div className="form-group">
           <label htmlFor="pdf-select">Choose a PDF file</label>
           <select

@@ -53,10 +53,10 @@ export default function Pdfs() {
 
   return (
     <div className="page-card">
-      <h1>Liste des PDFs</h1>
+      <h1>PDFs List</h1>
       
       <div className="form-group">
-        <label htmlFor="pdf-file">Ajouter un nouveau PDF</label>
+        <label htmlFor="pdf-file">Add a new PDF</label>
         <input type="file" id="pdf-file" className="form-control"/>
       </div>
       <button onClick={() => SavePdfFile(document.getElementById("pdf-file").files[0])} className="btn btn-primary">
@@ -66,9 +66,9 @@ export default function Pdfs() {
       <table>
         <thead>
           <tr>
-            <th>Nom du fichier</th>
-            <th>Chemin du fichier</th>
-            <th>Supprimer</th>
+            <th>File name</th>
+            <th>File path</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -77,7 +77,7 @@ export default function Pdfs() {
               <td>{pdf.file_name || "Null"}</td>
               <td>{pdf.file_path}</td>
               <td>
-                <button onClick={() => deletePdfFile(pdf.id)}>Supprimer</button>
+                <button onClick={() => deletePdfFile(pdf.id)}>Delete</button>
               </td>
             </tr>
           ))}

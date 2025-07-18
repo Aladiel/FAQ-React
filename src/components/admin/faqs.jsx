@@ -93,9 +93,8 @@ export default function Faqs() {
     fetchPdfs();
   }, []);
   return (
-    // Generate a table that displays FAQs with these columns Question, Answer, generation, Modify and delete buttons,
     <div className="page-card">
-      <h1>Liste des FAQs</h1>
+      <h1>FAQs List</h1>
       <div className="form-group">
         <label htmlFor="question">Question</label>
         <input type="text" id="question" className="form-control" />

@@ -49,17 +49,17 @@ export default function Users() {
 
   return (
     <div className="page-card">
-      <h1>Liste des Utilisateurs</h1>
+      <h1>Users List</h1>
       <table>
         <thead>
           <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Nom d'utilisateur</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Username</th>
             <th>Email</th>
-            <th>Rôle</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
+            <th>Staff</th>
+            <th>Modify</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -146,7 +146,7 @@ export default function Users() {
                 )}
               </td>
               <td>
-                <button>Supprimer</button>
+                <button>Delete</button>
               </td>
             </tr>
           ))}
