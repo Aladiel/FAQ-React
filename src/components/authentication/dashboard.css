@@ -6,8 +6,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  justify-content: space-between;
+  gap: 24px;
 }
 .dashboard h1 {
   font-size: 2.5rem;
